@@ -8,21 +8,21 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: "#0b192c",
+  themeColor: "#4615a4",
 };
 
 export const metadata: Metadata = {
-  title: "وصلة للشحن الجوي والبحري | WASLA for Shipping",
-  description: "خدمات الشحن الجوي والبحري من الصين وتركيا والإمارات وأمريكا والسعودية إلى ليبيا. حاسبة سلات شي إن بدون عمولة شراء وشحن مجاني.",
+  title: "هوية للشحن والتسوق الدولي | HUWIYYA",
+  description: "خدمات الشحن والتسوق الدولي مع هوية huwiyya. حاسبة سلات شي إن المباشرة بدون عمولة شراء وبأفضل سعر صرف.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "وصلة للشحن",
+    title: "هوية huwiyya",
   },
   icons: {
-    icon: "/icon.svg",
-    apple: "/icon.svg",
+    icon: "/logo.jpg",
+    apple: "/logo.jpg",
   },
 };
 
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-emerald-500 selection:text-white pb-14 md:pb-0">
+      <body className="min-h-screen bg-[#F8F9FA] text-slate-900 antialiased selection:bg-[#4615a4] selection:text-white pb-14 md:pb-0">
         {children}
         <MobileBottomNav />
       </body>

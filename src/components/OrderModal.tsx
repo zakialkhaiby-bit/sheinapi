@@ -97,8 +97,8 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
 
       // Prepare WhatsApp message
       const waText = encodeURIComponent(
-        `السلام عليكم شركة وصلة للشحن 🇱🇾\n` +
-        `أرغب في تأكيد طلب سلة شي إن (رقم الحجز: ${refId}):\n\n` +
+        `السلام عليكم شركة هوية للشحن والتسوق الدولي 🇱🇾\n` +
+        `أرغب في تأكيد طلب سلة شي إن مع هوية (رقم الحجز: ${refId}):\n\n` +
         `👤 الاسم: ${customerName}\n` +
         `📱 الهاتف: ${phone}\n` +
         `📍 المدينة: ${city}\n` +
@@ -125,10 +125,10 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/40 backdrop-blur-xs animate-fadeIn">
       <div className="bg-white w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] shadow-2xl overflow-hidden border border-slate-100">
         {/* Header */}
-        <div className="bg-slate-950 text-white p-5 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#240a58] via-[#361081] to-[#4615a4] text-white p-5 flex items-center justify-between">
           <div>
-            <h3 className="text-base font-extrabold tracking-tight">تأكيد حجز سلة SHEIN</h3>
-            <p className="text-[11px] text-slate-300">تسجيل الطلب والتأكيد الفوري عبر واتساب</p>
+            <h3 className="text-base font-extrabold tracking-tight">تأكيد حجز سلة SHEIN مع هوية</h3>
+            <p className="text-[11px] text-purple-200">تسجيل الطلب والتأكيد الفوري عبر واتساب</p>
           </div>
           <button
             onClick={onClose}
@@ -229,8 +229,8 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
                     onClick={() => setCity(c)}
                     className={`min-h-[34px] px-3 rounded-xl text-xs font-bold transition ${
                       city === c
-                        ? "bg-emerald-600 text-white shadow-xs"
-                        : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                        ? "bg-[#4615a4] text-white shadow-xs"
+                        : "bg-slate-100 hover:bg-[#ede4f9] hover:text-[#4615a4] text-slate-700"
                     }`}
                   >
                     {c}
@@ -241,7 +241,7 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm bg-white"
+                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#4615a4] text-sm bg-white"
               >
                 {ALL_CITIES.map((c) => (
                   <option key={c} value={c}>
@@ -262,11 +262,11 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
                   onClick={() => setDeliveryType("branch")}
                   className={`min-h-[50px] flex items-center justify-center gap-2 p-3 rounded-2xl border text-xs font-bold transition ${
                     deliveryType === "branch"
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-800 shadow-xs"
+                      ? "border-[#4615a4] bg-[#f6f2fc] text-[#4615a4] shadow-xs"
                       : "border-slate-200 hover:bg-slate-50 text-slate-600"
                   }`}
                 >
-                  <Building2 className="w-4 h-4 text-emerald-600" />
+                  <Building2 className="w-4 h-4 text-[#4615a4]" />
                   <span>استلام من الفرع</span>
                 </button>
 
@@ -275,11 +275,11 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
                   onClick={() => setDeliveryType("home")}
                   className={`min-h-[50px] flex items-center justify-center gap-2 p-3 rounded-2xl border text-xs font-bold transition ${
                     deliveryType === "home"
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-800 shadow-xs"
+                      ? "border-[#4615a4] bg-[#f6f2fc] text-[#4615a4] shadow-xs"
                       : "border-slate-200 hover:bg-slate-50 text-slate-600"
                   }`}
                 >
-                  <Home className="w-4 h-4 text-emerald-600" />
+                  <Home className="w-4 h-4 text-[#4615a4]" />
                   <span>توصيل للمنزل</span>
                 </button>
               </div>
@@ -332,14 +332,14 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full min-h-[52px] flex items-center justify-center gap-2 bg-black hover:bg-slate-900 text-white font-extrabold py-3.5 rounded-full shadow-lg transition disabled:opacity-50 text-sm active:scale-95"
+                className="w-full min-h-[52px] flex items-center justify-center gap-2 bg-[#4615a4] hover:bg-[#361081] text-white font-extrabold py-3.5 rounded-full shadow-lg shadow-[#4615a4]/25 transition disabled:opacity-50 text-sm active:scale-95"
               >
-                <MessageCircle className="w-5 h-5 text-emerald-400" />
-                <span>{submitting ? "جاري تجهيز الحجز..." : "إرسال وتأكيد الطلب عبر واتساب"}</span>
+                <MessageCircle className="w-5 h-5 text-white" />
+                <span>{submitting ? "جاري تجهيز الحجز..." : "إرسال وتأكيد الطلب مع هوية عبر واتساب"}</span>
               </button>
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 mt-2 text-center">
-                <Shield className="w-3.5 h-3.5 text-slate-600" />
-                <span>دفع آمن بعد التأكيد، ولا توجد أي عمولة شراء مخفية.</span>
+                <Shield className="w-3.5 h-3.5 text-[#4615a4]" />
+                <span>دفع آمن بعد التأكيد، ولا توجد أي عمولة شراء مخفية مع هوية.</span>
               </div>
             </div>
           </form>

@@ -9,8 +9,11 @@ export default function Home() {
         <SheinCalculator />
       </div>
       <footer className="mt-8 text-center text-[11px] text-slate-400 py-4 max-w-md mx-auto px-4">
-        <p>© {new Date().getFullYear()} وصلة للشحن الدولي · Wasla Ship 🇱🇾</p>
-        <p className="mt-0.5 text-[10px]">حاسبة سلات شي إن المباشرة · عمولة شراء 0% وشحن مجاني</p>
+        <div className="flex items-center justify-center gap-1.5 mb-1 text-slate-600 font-bold">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#4615a4]" />
+          <span>هوية للشحن والتسوق الدولي · Huwiyya Ship 🇱🇾</span>
+        </div>
+        <p className="text-[10px] text-slate-400">حاسبة سلات شي إن المباشرة بدون عمولة شراء وشحن مجاني</p>
       </footer>
     </main>
   );

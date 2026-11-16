@@ -326,7 +326,7 @@ export default function SheinCalculator() {
           onClick={() => setActiveTab("cart")}
           className={`shrink-0 px-5 py-2 rounded-full text-xs font-bold transition shadow-xs ${
             activeTab === "cart"
-              ? "bg-black text-white"
+              ? "bg-[#4615a4] text-white shadow-md shadow-[#4615a4]/25"
               : "bg-white text-slate-700 border border-slate-200/80 hover:bg-slate-50"
           }`}
         >
@@ -339,17 +339,17 @@ export default function SheinCalculator() {
             setNewRate(currentRate);
             setIsRateModalOpen(true);
           }}
-          className="shrink-0 flex items-center gap-1.5 bg-white text-slate-800 border border-slate-200/80 px-4 py-2 rounded-full text-xs font-bold hover:bg-slate-50 transition shadow-xs active:scale-95"
+          className="shrink-0 flex items-center gap-1.5 bg-white text-slate-800 border border-slate-200/80 px-4 py-2 rounded-full text-xs font-bold hover:bg-[#f6f2fc] hover:text-[#4615a4] transition shadow-xs active:scale-95"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-500" />
+          <span className="w-2 h-2 rounded-full bg-[#4615a4]" />
           <span>سعر الصرف:</span>
-          <span className="font-mono text-slate-900">{currentRate} د.ل</span>
+          <span className="font-mono text-[#4615a4] font-black">{currentRate} د.ل</span>
         </button>
 
         <button
           type="button"
           onClick={loadDemoCart}
-          className="shrink-0 flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200/80 px-4 py-2 rounded-full text-xs font-bold hover:bg-slate-50 transition shadow-xs active:scale-95"
+          className="shrink-0 flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200/80 px-4 py-2 rounded-full text-xs font-bold hover:bg-[#f6f2fc] hover:text-[#4615a4] transition shadow-xs active:scale-95"
         >
           <Sparkles className="w-3.5 h-3.5 text-amber-500" />
           <span>سلة تجريبية</span>
@@ -360,7 +360,7 @@ export default function SheinCalculator() {
           onClick={() => setShowHelp(!showHelp)}
           className={`shrink-0 px-4 py-2 rounded-full text-xs font-bold transition shadow-xs ${
             showHelp
-              ? "bg-black text-white"
+              ? "bg-[#4615a4] text-white"
               : "bg-white text-slate-700 border border-slate-200/80 hover:bg-slate-50"
           }`}
         >
@@ -373,7 +373,7 @@ export default function SheinCalculator() {
         <div className="bg-white rounded-[26px] p-5 border border-slate-100 shadow-[0_4px_25px_rgba(0,0,0,0.03)] space-y-2.5 animate-fadeIn">
           <div className="flex items-center justify-between">
             <span className="font-extrabold text-slate-900 text-xs flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-emerald-600" />
+              <CheckCircle className="w-4 h-4 text-[#4615a4]" />
               <span>خطوات نسخ الرابط من تطبيق SHEIN:</span>
             </span>
             <button
@@ -392,17 +392,17 @@ export default function SheinCalculator() {
         </div>
       )}
 
-      {/* 2. Promotional Feature Banner (like "Get special offer" in Reference Photo) */}
-      <div className="relative overflow-hidden rounded-[28px] bg-slate-950 text-white p-5 shadow-sm">
+      {/* 2. Promotional Feature Banner (Huwiyya Royal Violet Gradient) */}
+      <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#361081] via-[#4615a4] to-[#1c0746] text-white p-5 shadow-lg shadow-[#4615a4]/20 border border-[#4615a4]/30">
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-black bg-white/10 text-emerald-400 backdrop-blur-xs tracking-wider">
-              ضمان وصلة للشحن 🇱🇾
+            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-black bg-white/15 text-purple-200 backdrop-blur-xs tracking-wider">
+              ضمان هـويــة huwiyya 🇱🇾
             </span>
             <h2 className="text-xl sm:text-2xl font-black tracking-tight leading-tight">
               عمولة شراء 0% وشحن مجاني
             </h2>
-            <p className="text-xs text-slate-300 font-medium">
+            <p className="text-xs text-purple-100/90 font-medium">
               توصيل دبي مجاني فوق $50 · والشحن إلى ليبيا 0.00 د.ل
             </p>
           </div>
@@ -414,7 +414,7 @@ export default function SheinCalculator() {
                 const input = document.getElementById("cart-input") as HTMLInputElement;
                 if (input) input.focus();
               }}
-              className="px-5 py-2.5 rounded-full bg-white text-slate-950 text-xs font-black hover:bg-slate-100 transition active:scale-95 shadow-md"
+              className="px-5 py-2.5 rounded-full bg-white text-[#4615a4] text-xs font-black hover:bg-slate-100 transition active:scale-95 shadow-md"
             >
               احسب سلتك الآن
             </button>
@@ -422,10 +422,10 @@ export default function SheinCalculator() {
         </div>
 
         {/* Decorative ambient gradient */}
-        <div className="absolute -bottom-10 -left-10 w-44 h-44 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 w-44 h-44 bg-purple-400/20 rounded-full blur-2xl pointer-events-none" />
       </div>
 
-      {/* 3. Input & Search Capsule (like "AI Style Search" in Reference Photo) */}
+      {/* 3. Input & Search Capsule */}
       <div className="rounded-[28px] bg-white border border-slate-150 p-4 sm:p-5 shadow-[0_4px_25px_rgba(0,0,0,0.03)] space-y-3.5">
         <form
           onSubmit={(e) => {
@@ -461,27 +461,27 @@ export default function SheinCalculator() {
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://onelink.shein.com/..."
               dir="ltr"
-              className="w-full min-h-[52px] pl-20 pr-4 py-3 rounded-full border border-slate-200 bg-[#F9F9FB] focus:bg-white focus:outline-none focus:ring-2 focus:ring-black text-xs font-mono text-slate-900 placeholder:text-slate-400 transition"
+              className="w-full min-h-[52px] pl-20 pr-4 py-3 rounded-full border border-slate-200 bg-[#F9F9FB] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#4615a4] text-xs font-mono text-slate-900 placeholder:text-slate-400 transition"
             />
             <button
               type="button"
               onClick={handlePaste}
-              className="absolute left-2 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-white border border-slate-200 rounded-full text-slate-700 text-[11px] font-bold shadow-2xs hover:bg-slate-50 transition active:scale-95"
+              className="absolute left-2 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-white border border-slate-200 rounded-full text-slate-700 text-[11px] font-bold shadow-2xs hover:bg-[#f6f2fc] hover:text-[#4615a4] transition active:scale-95"
             >
               لصق
             </button>
           </div>
 
-          {/* Primary Action Button (Matte Black Pill) */}
+          {/* Primary Action Button (Huwiyya Royal Purple) */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full min-h-[50px] px-6 rounded-full bg-black hover:bg-slate-900 text-white font-extrabold text-sm shadow-md transition active:scale-95 disabled:opacity-90 flex items-center justify-center gap-2"
+            className="w-full min-h-[50px] px-6 rounded-full bg-[#4615a4] hover:bg-[#361081] text-white font-extrabold text-sm shadow-md shadow-[#4615a4]/25 transition active:scale-95 disabled:opacity-90 flex items-center justify-center gap-2"
           >
             {loading ? (
               <div className="flex items-center gap-2 font-mono">
-                <span className="font-black text-emerald-400 text-base">{Math.round(progress)}%</span>
-                <span className="font-sans text-xs text-slate-200">جاري المعالجة...</span>
+                <span className="font-black text-purple-200 text-base">{Math.round(progress)}%</span>
+                <span className="font-sans text-xs text-purple-100">جاري المعالجة...</span>
               </div>
             ) : (
               <>
@@ -494,26 +494,26 @@ export default function SheinCalculator() {
 
         {/* 4. The 0 - 100% Progress Line */}
         {loading && (
-          <div className="p-4 bg-[#F8F9FA] border border-slate-200/80 rounded-[22px] space-y-2.5 animate-fadeIn">
+          <div className="p-4 bg-[#f6f2fc] border border-[#ede4f9] rounded-[22px] space-y-2.5 animate-fadeIn">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-slate-900 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-black animate-ping" />
+              <span className="font-bold text-[#4615a4] flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#4615a4] animate-ping" />
                 <span>{progressStatus || "جاري جلب واحتساب السلة..."}</span>
               </span>
-              <span className="font-mono font-black text-slate-900 text-sm">
+              <span className="font-mono font-black text-[#4615a4] text-sm">
                 {Math.round(progress)}%
               </span>
             </div>
 
-            {/* Smooth 0-100 Progress Line */}
-            <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden p-0.5">
+            {/* Smooth 0-100 Progress Line in Brand Purple */}
+            <div className="w-full h-2.5 bg-purple-100 rounded-full overflow-hidden p-0.5">
               <div
-                className="h-full bg-black rounded-full transition-all duration-150 ease-out"
+                className="h-full bg-gradient-to-r from-[#4615a4] to-[#7c3aed] rounded-full transition-all duration-150 ease-out"
                 style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
               />
             </div>
 
-            <div className="flex justify-between items-center text-[10px] text-slate-400 font-mono font-semibold px-0.5">
+            <div className="flex justify-between items-center text-[10px] text-purple-400 font-mono font-semibold px-0.5">
               <span>0%</span>
               <span>25%</span>
               <span>50%</span>
@@ -536,28 +536,28 @@ export default function SheinCalculator() {
         <div className="space-y-4 animate-fadeIn">
           {/* Savings Badge */}
           {cart.pricing.savingsCents > 0 && (
-            <div className="bg-[#FFF0F2] border border-[#FFE4E8] rounded-[24px] p-4 flex items-center justify-between text-xs text-[#E11D48] font-bold">
+            <div className="bg-[#ede4f9] border border-[#dccbf3] rounded-[24px] p-4 flex items-center justify-between text-xs text-[#4615a4] font-bold">
               <span>🎉 وفرت {formatUsd(cart.pricing.savingsCents)} من عروض وتخفيضات شي إن!</span>
-              <span className="bg-white px-2.5 py-1 rounded-full shadow-2xs text-[11px]">
+              <span className="bg-white px-2.5 py-1 rounded-full shadow-2xs text-[11px] text-[#4615a4]">
                 خصم مباشر
               </span>
             </div>
           )}
 
           {/* Main Calculation Card */}
-          <div className="rounded-[28px] bg-white border border-slate-100 shadow-[0_6px_30px_rgba(0,0,0,0.04)] p-5 space-y-4">
+          <div className="rounded-[28px] bg-white border border-slate-100 shadow-[0_6px_30px_rgba(70,21,164,0.06)] p-5 space-y-4">
             <div className="flex items-end justify-between border-b border-slate-100 pb-4">
               <div>
                 <span className="text-[11px] font-bold text-slate-400 block mb-0.5">
                   الإجمالي النهائي بالدينار الليبي
                 </span>
-                <div className="text-3xl sm:text-4xl font-black font-mono text-slate-900 tracking-tight">
+                <div className="text-3xl sm:text-4xl font-black font-mono text-[#4615a4] tracking-tight">
                   {cart.pricing.lyd.roundedLyd} <span className="text-lg font-bold text-slate-500">د.ل</span>
                 </div>
               </div>
 
               <div className="text-left">
-                <span className="inline-block bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold font-mono">
+                <span className="inline-block bg-[#f6f2fc] text-[#4615a4] border border-[#ede4f9] px-3 py-1 rounded-full text-xs font-bold font-mono">
                   {cart.pricing.units} سلع بالسلة
                 </span>
               </div>
@@ -574,19 +574,19 @@ export default function SheinCalculator() {
 
               <div className="bg-[#F8F9FA] rounded-[20px] p-3 border border-slate-100">
                 <span className="text-[10px] text-slate-400 block font-bold mb-1">توصيل دبي</span>
-                <span className={`font-bold text-sm ${cart.pricing.dubaiDeliveryCents === 0 ? "text-emerald-600" : "text-slate-800 font-mono"}`}>
+                <span className={`font-bold text-sm ${cart.pricing.dubaiDeliveryCents === 0 ? "text-[#4615a4]" : "text-slate-800 font-mono"}`}>
                   {cart.pricing.dubaiDeliveryCents === 0 ? "مجاني" : formatUsd(cart.pricing.dubaiDeliveryCents)}
                 </span>
               </div>
 
               <div className="bg-[#F8F9FA] rounded-[20px] p-3 border border-slate-100">
                 <span className="text-[10px] text-slate-400 block font-bold mb-1">شحن ليبيا</span>
-                <span className="font-bold text-emerald-600 text-sm">مجاني (0 د.ل)</span>
+                <span className="font-bold text-[#4615a4] text-sm">مجاني (0 د.ل)</span>
               </div>
 
               <div className="bg-[#F8F9FA] rounded-[20px] p-3 border border-slate-100">
                 <span className="text-[10px] text-slate-400 block font-bold mb-1">سعر الصرف</span>
-                <span className="font-mono font-black text-slate-800 text-sm">
+                <span className="font-mono font-black text-[#4615a4] text-sm">
                   {cart.pricing.exchangeRate} د.ل
                 </span>
               </div>
@@ -596,9 +596,9 @@ export default function SheinCalculator() {
             <button
               type="button"
               onClick={() => setIsOrderModalOpen(true)}
-              className="w-full min-h-[52px] rounded-full bg-black hover:bg-slate-900 text-white font-extrabold text-sm shadow-lg flex items-center justify-center gap-2 active:scale-95 transition"
+              className="w-full min-h-[52px] rounded-full bg-[#4615a4] hover:bg-[#361081] text-white font-extrabold text-sm shadow-xl shadow-[#4615a4]/25 flex items-center justify-center gap-2 active:scale-95 transition"
             >
-              <span>أكد طلبي الآن واحجز السلة</span>
+              <span>أكد طلبي الآن واحجز السلة مع هوية</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -608,7 +608,7 @@ export default function SheinCalculator() {
             <div className="flex items-center justify-between px-1">
               <div className="flex items-center gap-2">
                 <h3 className="font-extrabold text-slate-900 text-sm">محتويات السلة</h3>
-                <span className="bg-black text-white text-[11px] font-mono font-bold px-2 py-0.5 rounded-full">
+                <span className="bg-[#4615a4] text-white text-[11px] font-mono font-bold px-2 py-0.5 rounded-full">
                   {cart.products.length}
                 </span>
               </div>
@@ -620,7 +620,7 @@ export default function SheinCalculator() {
                   onClick={() => setViewMode("grid")}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition ${
                     viewMode === "grid"
-                      ? "bg-white text-slate-950 shadow-xs"
+                      ? "bg-[#4615a4] text-white shadow-xs"
                       : "text-slate-500 hover:text-slate-900"
                   }`}
                   title="عرض شبكي"
@@ -633,7 +633,7 @@ export default function SheinCalculator() {
                   onClick={() => setViewMode("list")}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition ${
                     viewMode === "list"
-                      ? "bg-white text-slate-950 shadow-xs"
+                      ? "bg-[#4615a4] text-white shadow-xs"
                       : "text-slate-500 hover:text-slate-900"
                   }`}
                   title="عرض طولي"
@@ -744,7 +744,7 @@ export default function SheinCalculator() {
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.id, 1)}
-                            className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center shadow-2xs hover:bg-slate-900 active:scale-90 transition"
+                            className="w-7 h-7 rounded-full bg-[#4615a4] text-white flex items-center justify-center shadow-2xs hover:bg-[#361081] active:scale-90 transition"
                             title="زيادة"
                           >
                             <Plus className="w-3 h-3" />
@@ -831,7 +831,7 @@ export default function SheinCalculator() {
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center hover:bg-slate-900 active:scale-90 transition"
+                          className="w-7 h-7 rounded-full bg-[#4615a4] text-white flex items-center justify-center hover:bg-[#361081] active:scale-90 transition"
                           title="زيادة"
                         >
                           <Plus className="w-3 h-3" />
@@ -869,12 +869,12 @@ export default function SheinCalculator() {
 
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">
+                <div className="w-9 h-9 rounded-full bg-[#4615a4] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#4615a4]/20">
                   $
                 </div>
                 <div>
                   <h3 className="font-extrabold text-slate-900 text-base leading-tight">تعديل سعر الصرف</h3>
-                  <span className="text-[11px] text-slate-400">تحديث فوري لجميع أسعار السلة</span>
+                  <span className="text-[11px] text-slate-400">تحديث فوري لجميع أسعار السلة في هوية</span>
                 </div>
               </div>
               <button
@@ -899,7 +899,7 @@ export default function SheinCalculator() {
                     max="100"
                     value={newRate}
                     onChange={(e) => setNewRate(parseFloat(e.target.value) || 0)}
-                    className="w-full h-14 px-4 rounded-2xl border-2 border-slate-900 font-mono text-2xl font-black text-slate-900 focus:outline-none bg-slate-50/50 text-center"
+                    className="w-full h-14 px-4 rounded-2xl border-2 border-[#4615a4] font-mono text-2xl font-black text-[#4615a4] focus:outline-none bg-[#f6f2fc]/50 text-center"
                     autoFocus
                   />
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">
@@ -917,8 +917,8 @@ export default function SheinCalculator() {
                     onClick={() => setNewRate(preset)}
                     className={`px-2.5 py-1 rounded-full text-xs font-mono font-bold transition ${
                       newRate === preset
-                        ? "bg-black text-white"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        ? "bg-[#4615a4] text-white shadow-xs"
+                        : "bg-slate-100 text-slate-600 hover:bg-[#ede4f9] hover:text-[#4615a4]"
                     }`}
                   >
                     {preset}
@@ -927,8 +927,8 @@ export default function SheinCalculator() {
               </div>
 
               {rateSaveSuccess && (
-                <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold p-3 rounded-2xl flex items-center gap-2 justify-center">
-                  <CheckCircle className="w-4 h-4 text-emerald-600" />
+                <div className="bg-[#ede4f9] border border-[#dccbf3] text-[#4615a4] text-xs font-bold p-3 rounded-2xl flex items-center gap-2 justify-center">
+                  <CheckCircle className="w-4 h-4 text-[#4615a4]" />
                   <span>تم حفظ سعر الصرف وإعادة احتساب السلة فوراً!</span>
                 </div>
               )}
@@ -937,7 +937,7 @@ export default function SheinCalculator() {
                 <button
                   type="submit"
                   disabled={savingRate}
-                  className="flex-1 min-h-[48px] bg-black hover:bg-slate-900 text-white text-sm font-bold rounded-full transition active:scale-95 shadow-md disabled:opacity-60"
+                  className="flex-1 min-h-[48px] bg-[#4615a4] hover:bg-[#361081] text-white text-sm font-bold rounded-full transition active:scale-95 shadow-md shadow-[#4615a4]/20 disabled:opacity-60"
                 >
                   {savingRate ? "جاري الحفظ..." : "حفظ وتحديث السعر"}
                 </button>
