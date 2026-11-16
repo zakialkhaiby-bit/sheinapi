@@ -3,12 +3,12 @@ import { DEFAULT_SETTINGS } from "./pricing";
 
 // In-memory / file-based storage fallback
 let currentSettings: AppSettings = {
-  exchangeRate: DEFAULT_SETTINGS.exchangeRate,
+  exchangeRate: typeof process !== "undefined" && process.env.EXCHANGE_RATE ? parseFloat(process.env.EXCHANGE_RATE) : DEFAULT_SETTINGS.exchangeRate,
   freeShippingDubaiThreshold: DEFAULT_SETTINGS.freeThresholdUsd,
   dubaiDeliveryFee: DEFAULT_SETTINGS.dubaiFeeUsd,
   libyaShippingFee: DEFAULT_SETTINGS.libyaShippingFee,
-  whatsappNumber: "+218920064400",
-  phoneNumber: "092 006 44 00",
+  whatsappNumber: (typeof process !== "undefined" && process.env.WHATSAPP_NUMBER) || "+218920064400",
+  phoneNumber: (typeof process !== "undefined" && process.env.PHONE_NUMBER) || "092 006 44 00",
   updatedAt: new Date().toISOString(),
 };
 

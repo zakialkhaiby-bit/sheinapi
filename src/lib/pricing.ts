@@ -1,7 +1,7 @@
 import { CartPricing, SheinProduct } from "@/types";
 
 export const DEFAULT_SETTINGS = {
-  exchangeRate: 10.09,
+  exchangeRate: typeof process !== "undefined" && process.env.EXCHANGE_RATE ? parseFloat(process.env.EXCHANGE_RATE) : 10.09,
   underCents: 5000,     // $50.00
   feeCents: 544,        // $5.44
   freeThresholdUsd: 50,
