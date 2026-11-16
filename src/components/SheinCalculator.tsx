@@ -16,6 +16,8 @@ import {
   Sliders,
   X,
   ExternalLink,
+  LayoutGrid,
+  List,
 } from "lucide-react";
 import { SheinCart, SheinProduct, AppSettings } from "@/types";
 import { formatLyd, formatUsd } from "@/lib/pricing";
@@ -29,6 +31,8 @@ export default function SheinCalculator() {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [activeTab, setActiveTab] = useState<"cart" | "help">("cart");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   // Loading Progress State (0 - 100%)
   const [progress, setProgress] = useState(0);
@@ -599,104 +603,254 @@ export default function SheinCalculator() {
             </button>
           </div>
 
-          {/* 6. Products Listing (AI Picks For You Reference Style) */}
+          {/* 6. Products Listing - Organized Cards (Reference Style) */}
           <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between px-1">
-              <h3 className="font-extrabold text-slate-900 text-sm">محتويات السلة ({cart.products.length})</h3>
-              <span className="text-xs text-slate-400 font-medium">قابلة للتعديل</span>
+              <div className="flex items-center gap-2">
+                <h3 className="font-extrabold text-slate-900 text-sm">محتويات السلة</h3>
+                <span className="bg-black text-white text-[11px] font-mono font-bold px-2 py-0.5 rounded-full">
+                  {cart.products.length}
+                </span>
+              </div>
+
+              {/* View Mode Toggle (Grid / List) */}
+              <div className="flex items-center bg-[#F1F3F5] rounded-full p-1 border border-slate-200/60">
+                <button
+                  type="button"
+                  onClick={() => setViewMode("grid")}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition ${
+                    viewMode === "grid"
+                      ? "bg-white text-slate-950 shadow-xs"
+                      : "text-slate-500 hover:text-slate-900"
+                  }`}
+                  title="عرض شبكي"
+                >
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">شبكة</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode("list")}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition ${
+                    viewMode === "list"
+                      ? "bg-white text-slate-950 shadow-xs"
+                      : "text-slate-500 hover:text-slate-900"
+                  }`}
+                  title="عرض طولي"
+                >
+                  <List className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">قائمة</span>
+                </button>
+              </div>
             </div>
 
-            <div className="space-y-2.5">
-              {cart.products.map((item) => {
-                const itemLyd = Math.round((item.productUnitCents / 100) * currentRate);
-                return (
-                  <div
-                    key={item.id}
-                    className="bg-white rounded-[24px] p-3.5 border border-slate-100 shadow-[0_2px_15px_rgba(0,0,0,0.02)] flex items-center gap-3.5"
-                  >
-                    {/* Image */}
-                    <div className="relative w-18 h-18 sm:w-20 sm:h-20 shrink-0 rounded-[18px] bg-slate-50 overflow-hidden border border-slate-100">
-                      {item.imageUrl ? (
-                        <img
-                          src={item.imageUrl}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-slate-300">
-                          <ShoppingBag className="w-6 h-6" />
+            {/* Grid View: 2-Column Luxury Cards */}
+            {viewMode === "grid" ? (
+              <div className="grid grid-cols-2 gap-3 sm:gap-3.5">
+                {cart.products.map((item) => {
+                  const itemLyd = Math.round((item.productUnitCents / 100) * currentRate);
+                  const hasDiscount = item.originalUnitCents > item.productUnitCents;
+                  const discountPercent = hasDiscount
+                    ? Math.round(((item.originalUnitCents - item.productUnitCents) / item.originalUnitCents) * 100)
+                    : 0;
+
+                  return (
+                    <div
+                      key={item.id}
+                      className="bg-white rounded-[26px] p-2.5 sm:p-3 border border-slate-150 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-md transition relative group"
+                    >
+                      {/* Top: Product Image */}
+                      <div>
+                        <div className="relative aspect-square w-full rounded-[20px] overflow-hidden bg-slate-50 mb-2 border border-slate-100">
+                          {item.imageUrl && !imageErrors[item.id] ? (
+                            <img
+                              src={item.imageUrl}
+                              alt=""
+                              onError={() => setImageErrors((prev) => ({ ...prev, [item.id]: true }))}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100/70 text-slate-400 p-2">
+                              <ShoppingBag className="w-8 h-8 mb-1 stroke-1 text-slate-400" />
+                              <span className="text-[9px] font-bold text-slate-500 text-center leading-tight">منتج شي إن</span>
+                            </div>
+                          )}
+
+                          {/* Top-Right: Discount Badge */}
+                          {hasDiscount && (
+                            <div className="absolute top-2 right-2 bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-xs">
+                              %{discountPercent}-
+                            </div>
+                          )}
+
+                          {/* Top-Left: Trash Button */}
+                          <button
+                            type="button"
+                            onClick={() => removeItem(item.id)}
+                            className="absolute top-2 left-2 w-7 h-7 rounded-full bg-white/95 backdrop-blur-xs text-slate-400 hover:text-rose-600 flex items-center justify-center shadow-xs active:scale-90 transition"
+                            title="حذف السلعة"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
                         </div>
-                      )}
-                    </div>
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-xs text-slate-900 truncate leading-snug">
-                        {item.name}
-                      </h4>
+                        {/* Title */}
+                        <h4 className="font-bold text-xs text-slate-900 line-clamp-2 leading-snug mb-1.5 min-h-[32px]">
+                          {item.name}
+                        </h4>
 
-                      <div className="flex flex-wrap items-center gap-1.5 mt-1">
-                        {item.color && (
-                          <span className="inline-block bg-slate-100 text-slate-600 text-[10px] font-medium px-2 py-0.5 rounded-full">
-                            {item.color}
-                          </span>
-                        )}
-                        {item.size && (
-                          <span className="inline-block bg-slate-100 text-slate-600 text-[10px] font-medium px-2 py-0.5 rounded-full">
-                            {item.size}
-                          </span>
-                        )}
-                        <span className="text-slate-400 text-[10px]">كود: {item.id}</span>
+                        {/* Size & Color Chips */}
+                        <div className="flex flex-wrap items-center gap-1 mb-2">
+                          {item.size && (
+                            <span className="bg-[#F4F4F6] text-slate-800 text-[10px] font-black px-2 py-0.5 rounded-full">
+                              {item.size}
+                            </span>
+                          )}
+                          {item.color && (
+                            <span className="bg-[#F4F4F6] text-slate-600 text-[10px] font-medium px-2 py-0.5 rounded-full">
+                              {item.color}
+                            </span>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="flex items-center gap-2 mt-1.5">
-                        <span className="font-mono font-black text-slate-900 text-sm">
-                          {itemLyd} د.ل
-                        </span>
-                        <span className="text-slate-400 font-mono text-[11px]">
-                          ({formatUsd(item.productUnitCents)})
-                        </span>
+                      {/* Bottom Section: Price & Quantity Controls */}
+                      <div className="pt-2 border-t border-slate-100 space-y-2">
+                        <div className="flex items-baseline justify-between">
+                          <span className="font-mono font-black text-slate-900 text-sm">
+                            {itemLyd} د.ل
+                          </span>
+                          <span className="text-slate-400 font-mono text-[10px]">
+                            {formatUsd(item.productUnitCents)}
+                          </span>
+                        </div>
+
+                        {/* Quantity Stepper */}
+                        <div className="flex items-center justify-between bg-[#F8F9FA] rounded-full p-1 border border-slate-100">
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, -1)}
+                            className="w-7 h-7 rounded-full bg-white text-slate-800 border border-slate-200/80 flex items-center justify-center shadow-2xs hover:bg-slate-50 active:scale-90 transition"
+                            title="إنقاص"
+                          >
+                            <Minus className="w-3 h-3" />
+                          </button>
+
+                          <span className="font-mono font-black text-xs text-slate-900">
+                            {item.quantity}
+                          </span>
+
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, 1)}
+                            className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center shadow-2xs hover:bg-slate-900 active:scale-90 transition"
+                            title="زيادة"
+                          >
+                            <Plus className="w-3 h-3" />
+                          </button>
+                        </div>
                       </div>
                     </div>
+                  );
+                })}
+              </div>
+            ) : (
+              /* List View: Horizontal Organized Cards */
+              <div className="space-y-2.5">
+                {cart.products.map((item) => {
+                  const itemLyd = Math.round((item.productUnitCents / 100) * currentRate);
+                  return (
+                    <div
+                      key={item.id}
+                      className="bg-white rounded-[24px] p-3.5 border border-slate-100 shadow-[0_2px_15px_rgba(0,0,0,0.02)] flex items-center gap-3.5"
+                    >
+                      {/* Image */}
+                      <div className="relative w-20 h-20 shrink-0 rounded-[18px] bg-slate-50 overflow-hidden border border-slate-100">
+                        {item.imageUrl && !imageErrors[item.id] ? (
+                          <img
+                            src={item.imageUrl}
+                            alt=""
+                            onError={() => setImageErrors((prev) => ({ ...prev, [item.id]: true }))}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100/70 text-slate-400 p-1">
+                            <ShoppingBag className="w-6 h-6 mb-0.5 stroke-1 text-slate-400" />
+                            <span className="text-[8px] font-bold text-slate-500 text-center">شي إن</span>
+                          </div>
+                        )}
+                      </div>
 
-                    {/* Quantity Controls (Minimalist Circular Buttons) */}
-                    <div className="shrink-0 flex items-center gap-1.5 bg-[#F8F9FA] rounded-full p-1 border border-slate-100">
-                      <button
-                        type="button"
-                        onClick={() => updateQuantity(item.id, -1)}
-                        className="w-7 h-7 rounded-full bg-white text-slate-700 border border-slate-200/60 flex items-center justify-center hover:bg-slate-100 active:scale-90 transition"
-                        title="إنقاص"
-                      >
-                        <Minus className="w-3 h-3" />
-                      </button>
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-bold text-xs text-slate-900 truncate leading-snug">
+                          {item.name}
+                        </h4>
 
-                      <span className="w-5 text-center font-mono font-bold text-xs text-slate-800">
-                        {item.quantity}
-                      </span>
+                        <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                          {item.size && (
+                            <span className="bg-slate-100 text-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                              {item.size}
+                            </span>
+                          )}
+                          {item.color && (
+                            <span className="bg-slate-100 text-slate-600 text-[10px] font-medium px-2 py-0.5 rounded-full">
+                              {item.color}
+                            </span>
+                          )}
+                          <span className="text-slate-400 text-[10px]">كود: {item.id}</span>
+                        </div>
 
-                      <button
-                        type="button"
-                        onClick={() => updateQuantity(item.id, 1)}
-                        className="w-7 h-7 rounded-full bg-white text-slate-700 border border-slate-200/60 flex items-center justify-center hover:bg-slate-100 active:scale-90 transition"
-                        title="زيادة"
-                      >
-                        <Plus className="w-3 h-3" />
-                      </button>
+                        <div className="flex items-center gap-2 mt-1.5">
+                          <span className="font-mono font-black text-slate-900 text-sm">
+                            {itemLyd} د.ل
+                          </span>
+                          <span className="text-slate-400 font-mono text-[11px]">
+                            ({formatUsd(item.productUnitCents)})
+                          </span>
+                        </div>
+                      </div>
 
-                      <button
-                        type="button"
-                        onClick={() => removeItem(item.id)}
-                        className="w-7 h-7 rounded-full bg-white text-rose-600 border border-slate-200/60 flex items-center justify-center hover:bg-rose-50 active:scale-90 transition ml-0.5"
-                        title="حذف"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
+                      {/* Quantity Controls */}
+                      <div className="shrink-0 flex items-center gap-1.5 bg-[#F8F9FA] rounded-full p-1 border border-slate-100">
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.id, -1)}
+                          className="w-7 h-7 rounded-full bg-white text-slate-700 border border-slate-200/60 flex items-center justify-center hover:bg-slate-100 active:scale-90 transition"
+                          title="إنقاص"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+
+                        <span className="w-5 text-center font-mono font-bold text-xs text-slate-800">
+                          {item.quantity}
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.id, 1)}
+                          className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center hover:bg-slate-900 active:scale-90 transition"
+                          title="زيادة"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.id)}
+                          className="w-7 h-7 rounded-full bg-white text-rose-600 border border-slate-200/60 flex items-center justify-center hover:bg-rose-50 active:scale-90 transition ml-0.5"
+                          title="حذف"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}
