@@ -1,80 +1,75 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Home, ShoppingBag, Plane, MapPin, MessageCircle } from "lucide-react";
+import React, { useState } from "react";
+import { Home, Search, Sparkles, MessageCircle, Sliders, ShoppingBag } from "lucide-react";
 
 export default function MobileBottomNav() {
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState("calc");
 
-  const scrollTo = (id: string, tab: string) => {
-    setActiveTab(tab);
-    if (id === "top") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    const elem = document.getElementById(id);
-    if (elem) {
-      elem.scrollIntoView({ behavior: "smooth", block: "start" });
+  const handleAction = () => {
+    const input = document.getElementById("cart-input") as HTMLInputElement;
+    if (input) {
+      input.focus();
+      input.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-lg border-t border-slate-200/90 shadow-2xl py-1.5 px-2 md:hidden">
-      <div className="max-w-md mx-auto grid grid-cols-5 items-center justify-between text-[10px] font-bold">
+    <div className="fixed bottom-3 inset-x-0 z-40 pointer-events-none px-4">
+      <nav className="max-w-xs mx-auto pointer-events-auto bg-white/95 backdrop-blur-xl border border-slate-200/80 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.12)] px-4 py-2 flex items-center justify-between">
         {/* Home */}
         <button
           type="button"
-          onClick={() => scrollTo("top", "home")}
-          className={`flex flex-col items-center gap-1 py-1 px-1 rounded-xl transition ${
-            activeTab === "home"
-              ? "text-emerald-700"
-              : "text-slate-400 hover:text-slate-600"
+          onClick={() => {
+            setActiveTab("home");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className={`flex flex-col items-center justify-center p-2 rounded-full transition ${
+            activeTab === "home" ? "text-slate-900" : "text-slate-400 hover:text-slate-600"
           }`}
+          title="الرئيسية"
         >
           <Home className={`w-5 h-5 ${activeTab === "home" ? "stroke-[2.5]" : ""}`} />
-          <span>الرئيسية</span>
         </button>
 
-        {/* Shein Calculator */}
+        {/* Search / Calc */}
         <button
           type="button"
-          onClick={() => scrollTo("shein-calculator", "shein")}
-          className={`flex flex-col items-center gap-1 py-1 px-1 rounded-xl transition ${
-            activeTab === "shein"
-              ? "text-emerald-700"
-              : "text-slate-400 hover:text-slate-600"
+          onClick={() => {
+            setActiveTab("calc");
+            handleAction();
+          }}
+          className={`flex flex-col items-center justify-center p-2 rounded-full transition ${
+            activeTab === "calc" ? "text-slate-900" : "text-slate-400 hover:text-slate-600"
           }`}
+          title="حساب السلة"
         >
-          <ShoppingBag className={`w-5 h-5 ${activeTab === "shein" ? "stroke-[2.5]" : ""}`} />
-          <span>حاسبة شي إن</span>
+          <Search className={`w-5 h-5 ${activeTab === "calc" ? "stroke-[2.5]" : ""}`} />
         </button>
 
-        {/* Shipping Rates */}
+        {/* Center Elevated Floating Black Action Button */}
         <button
           type="button"
-          onClick={() => scrollTo("shipping-rates", "rates")}
-          className={`flex flex-col items-center gap-1 py-1 px-1 rounded-xl transition ${
-            activeTab === "rates"
-              ? "text-emerald-700"
-              : "text-slate-400 hover:text-slate-600"
-          }`}
+          onClick={handleAction}
+          className="relative -top-4 w-12 h-12 rounded-full bg-black text-white flex items-center justify-center shadow-xl shadow-black/30 hover:scale-105 active:scale-95 transition-transform"
+          title="لصق وحساب الرابط"
         >
-          <Plane className={`w-5 h-5 ${activeTab === "rates" ? "stroke-[2.5]" : ""}`} />
-          <span>الأسعار</span>
+          <ShoppingBag className="w-5 h-5 stroke-[2]" />
         </button>
 
-        {/* Branches */}
+        {/* Exchange Rate / Settings */}
         <button
           type="button"
-          onClick={() => scrollTo("branches", "branches")}
-          className={`flex flex-col items-center gap-1 py-1 px-1 rounded-xl transition ${
-            activeTab === "branches"
-              ? "text-emerald-700"
-              : "text-slate-400 hover:text-slate-600"
+          onClick={() => {
+            setActiveTab("rate");
+            window.dispatchEvent(new CustomEvent("openRateModal"));
+          }}
+          className={`flex flex-col items-center justify-center p-2 rounded-full transition ${
+            activeTab === "rate" ? "text-slate-900" : "text-slate-400 hover:text-slate-600"
           }`}
+          title="سعر الصرف"
         >
-          <MapPin className={`w-5 h-5 ${activeTab === "branches" ? "stroke-[2.5]" : ""}`} />
-          <span>الفروع</span>
+          <Sliders className="w-5 h-5" />
         </button>
 
         {/* WhatsApp */}
@@ -82,14 +77,12 @@ export default function MobileBottomNav() {
           href="https://wa.me/218943964444"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-col items-center gap-1 py-1 px-1 text-emerald-600 hover:text-emerald-700 transition"
+          className="flex flex-col items-center justify-center p-2 text-slate-400 hover:text-emerald-600 transition"
+          title="واتساب مباشر"
         >
-          <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-xs">
-            <MessageCircle className="w-3.5 h-3.5" />
-          </div>
-          <span>واتساب</span>
+          <MessageCircle className="w-5 h-5" />
         </a>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

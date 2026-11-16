@@ -9,6 +9,7 @@ interface OrderModalProps {
   isOpen: boolean;
   onClose: () => void;
   cart: SheinCart;
+  pricing?: any;
 }
 
 const TOP_CITIES = ["طرابلس", "مصراتة", "بنغازي", "الزاوية", "زليتن", "الخمس"];
@@ -121,19 +122,19 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/40 backdrop-blur-xs animate-fadeIn">
+      <div className="bg-white w-full max-w-lg rounded-t-[32px] sm:rounded-[32px] shadow-2xl overflow-hidden border border-slate-100">
         {/* Header */}
-        <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white p-5 flex items-center justify-between">
+        <div className="bg-slate-950 text-white p-5 flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-black tracking-tight">تأكيد طلب سلة SHEIN</h3>
-            <p className="text-xs text-emerald-100">سيتم حفظ الحجز وتحويلك مباشرة لمتابعة الشحن</p>
+            <h3 className="text-base font-extrabold tracking-tight">تأكيد حجز سلة SHEIN</h3>
+            <p className="text-[11px] text-slate-300">تسجيل الطلب والتأكيد الفوري عبر واتساب</p>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition"
           >
-            <X className="w-5 h-5" />
+            ✕
           </button>
         </div>
 
@@ -171,17 +172,16 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
         ) : (
           <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4 max-h-[85vh] overflow-y-auto">
             {/* Price Preview Card */}
-            <div className="bg-emerald-50 border border-emerald-200/90 rounded-2xl p-4 flex items-center justify-between">
+            <div className="bg-[#F8F9FA] border border-slate-200/80 rounded-[22px] p-4 flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 block font-medium">الإجمالي النهائي بالدينار:</span>
-                <span className="text-2xl font-black text-emerald-700 font-mono tabular-nums">
-                  {formatLyd(cart.pricing.lyd.roundedLyd)}
+                <span className="text-[11px] text-slate-400 block font-bold">الإجمالي بالدينار:</span>
+                <span className="text-2xl font-black text-slate-900 font-mono">
+                  {cart.pricing.lyd.roundedLyd} د.ل
                 </span>
               </div>
               <div className="text-left text-xs text-slate-600 space-y-0.5 font-medium">
                 <div>القطع: <strong>{cart.pricing.units}</strong></div>
-                <div>بالدولار: <strong className="font-mono">{formatUsd(cart.pricing.payableCents)}</strong></div>
-                <div>الشحن: <strong className="text-emerald-700">مجاني لليبيا</strong></div>
+                <div>الشحن لليبيا: <strong className="text-emerald-600">مجاني</strong></div>
               </div>
             </div>
 
@@ -332,13 +332,13 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full min-h-[52px] flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-emerald-600/30 transition disabled:opacity-50 text-sm active:scale-95"
+                className="w-full min-h-[52px] flex items-center justify-center gap-2 bg-black hover:bg-slate-900 text-white font-extrabold py-3.5 rounded-full shadow-lg transition disabled:opacity-50 text-sm active:scale-95"
               >
-                <MessageCircle className="w-5 h-5" />
-                <span>{submitting ? "جاري تجهيز الحجز..." : "إرسال وتأكيد عبر واتساب"}</span>
+                <MessageCircle className="w-5 h-5 text-emerald-400" />
+                <span>{submitting ? "جاري تجهيز الحجز..." : "إرسال وتأكيد الطلب عبر واتساب"}</span>
               </button>
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 mt-2 text-center">
-                <Shield className="w-3.5 h-3.5 text-emerald-600" />
+                <Shield className="w-3.5 h-3.5 text-slate-600" />
                 <span>دفع آمن بعد التأكيد، ولا توجد أي عمولة شراء مخفية.</span>
               </div>
             </div>
