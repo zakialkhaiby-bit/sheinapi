@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calculator, Plane, Ship, ArrowLeft } from "lucide-react";
+import { Calculator, Plane, Ship, ArrowLeft, ShieldCheck } from "lucide-react";
 import { formatLyd, formatUsd } from "@/lib/pricing";
 
 const COUNTRY_RATES: Record<string, { name: string; air: number; sea?: number; flag: string }> = {
@@ -11,6 +11,8 @@ const COUNTRY_RATES: Record<string, { name: string; air: number; sea?: number; f
   cn: { name: "الصين", air: 11.50, sea: 3.50, flag: "🇨🇳" },
   us: { name: "أمريكا", air: 14.50, flag: "🇺🇸" },
 };
+
+const WEIGHT_PRESETS = [1, 3, 5, 10, 20];
 
 export default function GeneralShippingCalculator() {
   const [country, setCountry] = useState("tr");
@@ -24,28 +26,28 @@ export default function GeneralShippingCalculator() {
   const totalLyd = Math.round(totalUsd * exchangeRate);
 
   return (
-    <section id="general-calc" className="py-16 px-4 bg-slate-50 border-b border-slate-200">
+    <section id="general-calc" className="py-16 sm:py-24 px-4 bg-slate-50 border-b border-slate-200">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-full mb-3">
-            <Calculator className="w-3.5 h-3.5" />
+        <div className="text-center mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 bg-slate-200/80 text-slate-800 text-xs font-bold px-3.5 py-1.5 rounded-full mb-3 shadow-xs">
+            <Calculator className="w-3.5 h-3.5 text-slate-700" />
             <span>حاسبة الشحن التقديرية</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2.5 tracking-tight">
             احسب تكلفة شحن طردك بالكيلوجرام
           </h2>
-          <p className="text-slate-600 text-sm">
-            حدد دولة الشحن والوزن لمعرفة التكلفة الإجمالية بالدولار والدينار
+          <p className="text-slate-600 text-sm max-w-md mx-auto">
+            حدد دولة المصدر والوزن لمعرفة التكلفة الإجمالية بالدولار والدينار
           </p>
         </div>
 
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-200/50">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             {/* Inputs */}
-            <div className="space-y-5">
+            <div className="space-y-6">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  الدولة المصدرة للشحنة
+                <label className="block text-xs font-bold text-slate-700 mb-2">
+                  دولة الشحن (المصدر)
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   {Object.entries(COUNTRY_RATES).map(([key, c]) => (
@@ -56,13 +58,13 @@ export default function GeneralShippingCalculator() {
                         setCountry(key);
                         if (shippingType === "sea" && !c.sea) setShippingType("air");
                       }}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1 transition ${
+                      className={`min-h-[52px] p-2.5 rounded-2xl border text-xs font-bold flex flex-col items-center justify-center gap-1 transition ${
                         country === key
-                          ? "border-emerald-600 bg-emerald-50 text-emerald-800 shadow-xs"
+                          ? "border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xs"
                           : "border-slate-200 hover:bg-slate-50 text-slate-600"
                       }`}
                     >
-                      <span className="text-xl">{c.flag}</span>
+                      <span className="text-xl leading-none">{c.flag}</span>
                       <span>{c.name}</span>
                     </button>
                   ))}
@@ -70,16 +72,16 @@ export default function GeneralShippingCalculator() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-2">
                   نوع الشحن
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2.5">
                   <button
                     type="button"
                     onClick={() => setShippingType("air")}
-                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-xs font-bold transition ${
+                    className={`min-h-[48px] flex items-center justify-center gap-2 p-3 rounded-2xl border text-xs font-bold transition ${
                       shippingType === "air"
-                        ? "border-emerald-600 bg-emerald-50 text-emerald-800"
+                        ? "border-emerald-600 bg-emerald-50 text-emerald-800 shadow-xs"
                         : "border-slate-200 hover:bg-slate-50 text-slate-600"
                     }`}
                   >
@@ -91,11 +93,11 @@ export default function GeneralShippingCalculator() {
                     type="button"
                     disabled={!currentCountry.sea}
                     onClick={() => setShippingType("sea")}
-                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-xs font-bold transition ${
+                    className={`min-h-[48px] flex items-center justify-center gap-2 p-3 rounded-2xl border text-xs font-bold transition ${
                       !currentCountry.sea
                         ? "opacity-40 cursor-not-allowed border-slate-200 bg-slate-50"
                         : shippingType === "sea"
-                        ? "border-emerald-600 bg-emerald-50 text-emerald-800"
+                        ? "border-emerald-600 bg-emerald-50 text-emerald-800 shadow-xs"
                         : "border-slate-200 hover:bg-slate-50 text-slate-600"
                     }`}
                   >
@@ -105,11 +107,31 @@ export default function GeneralShippingCalculator() {
                 </div>
               </div>
 
+              {/* Weight Selector - Selection Over Manual Input (Quick Chips + Slider) */}
               <div>
-                <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-1.5">
+                <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-2">
                   <span>الوزن التقديري (كجم):</span>
-                  <span className="text-emerald-700 font-mono text-sm">{weightKg} كجم</span>
+                  <span className="text-emerald-700 font-mono text-sm font-black">{weightKg} كجم</span>
                 </div>
+
+                {/* Quick preset chips */}
+                <div className="flex gap-1.5 mb-3">
+                  {WEIGHT_PRESETS.map((w) => (
+                    <button
+                      key={w}
+                      type="button"
+                      onClick={() => setWeightKg(w)}
+                      className={`min-h-[32px] flex-1 rounded-xl text-xs font-bold transition ${
+                        weightKg === w
+                          ? "bg-emerald-600 text-white shadow-xs"
+                          : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                      }`}
+                    >
+                      {w} كجم
+                    </button>
+                  ))}
+                </div>
+
                 <input
                   type="range"
                   min="0.5"
@@ -117,7 +139,7 @@ export default function GeneralShippingCalculator() {
                   step="0.5"
                   value={weightKg}
                   onChange={(e) => setWeightKg(parseFloat(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                  className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
                 />
                 <div className="flex justify-between text-[11px] text-slate-400 mt-1 font-mono">
                   <span>0.5 كجم</span>
@@ -128,10 +150,10 @@ export default function GeneralShippingCalculator() {
             </div>
 
             {/* Result Box */}
-            <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between h-full space-y-6">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between h-full space-y-6 shadow-xl">
               <div>
                 <span className="text-xs text-slate-400 block mb-1">الشحن التقديري من {currentCountry.name}</span>
-                <div className="text-4xl font-black text-emerald-400 tracking-tight">
+                <div className="text-4xl font-black text-emerald-400 font-mono tabular-nums tracking-tight">
                   {formatLyd(totalLyd)}
                 </div>
                 <div className="text-xs text-slate-400 mt-1 font-mono">
@@ -142,11 +164,11 @@ export default function GeneralShippingCalculator() {
               <div className="border-t border-slate-800 pt-4 space-y-2 text-xs text-slate-300">
                 <div className="flex justify-between">
                   <span>سعر الكيلو المعتمد:</span>
-                  <strong className="text-white">${ratePerKg.toFixed(2)}</strong>
+                  <strong className="text-white font-mono">${ratePerKg.toFixed(2)}</strong>
                 </div>
                 <div className="flex justify-between">
                   <span>الوزن المحسوب:</span>
-                  <strong className="text-white">{weightKg} كجم</strong>
+                  <strong className="text-white font-mono">{weightKg} كجم</strong>
                 </div>
                 <div className="flex justify-between">
                   <span>الرسوم الجمركية:</span>
@@ -158,7 +180,7 @@ export default function GeneralShippingCalculator() {
                 href="https://wa.me/218943964444"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3.5 rounded-xl transition text-sm shadow-md"
+                className="w-full min-h-[48px] flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3.5 rounded-2xl transition text-sm shadow-md active:scale-95"
               >
                 <span>احجز شحنتك الآن عبر واتساب</span>
                 <ArrowLeft className="w-4 h-4" />
