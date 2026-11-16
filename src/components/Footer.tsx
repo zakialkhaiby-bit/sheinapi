@@ -59,17 +59,17 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                <span dir="ltr">094 396 44 44</span>
+                <span dir="ltr">092 006 44 00</span>
               </li>
               <li className="flex items-center gap-2">
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
                 <a
-                  href="https://wa.me/218943964444"
+                  href="https://wa.me/218920064400"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-emerald-400 transition"
                 >
-                  واتساب مباشر: +218 94 396 4444
+                  واتساب مباشر: +218 92 006 4400
                 </a>
               </li>
               <li className="flex items-center gap-2">

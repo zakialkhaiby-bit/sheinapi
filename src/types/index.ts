@@ -47,8 +47,8 @@ export interface AppSettings {
   freeShippingDubaiThreshold: number; // e.g. 50 ($50)
   dubaiDeliveryFee: number;           // e.g. 5.44 ($5.44)
   libyaShippingFee: number;           // e.g. 0.00
-  whatsappNumber: string;             // e.g. "+218943964444"
-  phoneNumber: string;                // e.g. "094 396 44 44"
+  whatsappNumber: string;             // e.g. "+218920064400"
+  phoneNumber: string;                // e.g. "092 006 44 00"
   updatedAt: string;
 }
 

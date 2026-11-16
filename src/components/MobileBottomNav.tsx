@@ -74,7 +74,7 @@ export default function MobileBottomNav() {
 
         {/* WhatsApp */}
         <a
-          href="https://wa.me/218943964444"
+          href="https://wa.me/218920064400"
           target="_blank"
           rel="noopener noreferrer"
           className="flex flex-col items-center justify-center p-2 text-slate-400 hover:text-[#4615a4] transition"

@@ -112,7 +112,7 @@ export default function OrderModal({ isOpen, onClose, cart }: OrderModalProps) {
       );
 
       // Open WhatsApp direct URL
-      window.open(`https://wa.me/218943964444?text=${waText}`, "_blank");
+      window.open(`https://wa.me/218920064400?text=${waText}`, "_blank");
       setSuccess(true);
     } catch (err) {
       console.error(err);

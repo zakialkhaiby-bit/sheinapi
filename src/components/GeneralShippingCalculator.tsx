@@ -177,7 +177,7 @@ export default function GeneralShippingCalculator() {
               </div>
 
               <a
-                href="https://wa.me/218943964444"
+                href="https://wa.me/218920064400"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full min-h-[48px] flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3.5 rounded-2xl transition text-sm shadow-md active:scale-95"

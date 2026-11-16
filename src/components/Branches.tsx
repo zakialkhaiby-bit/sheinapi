@@ -48,7 +48,7 @@ export default function Branches() {
 
                 <div className="flex items-center gap-2.5">
                   <Phone className="w-5 h-5 text-emerald-600 shrink-0" />
-                  <span dir="ltr">094 396 44 44</span>
+                  <span dir="ltr">092 006 44 00</span>
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@ export default function Branches() {
 
                 <div className="flex items-center gap-2.5">
                   <Phone className="w-5 h-5 text-teal-600 shrink-0" />
-                  <span dir="ltr">094 396 44 44</span>
+                  <span dir="ltr">092 006 44 00</span>
                 </div>
               </div>
             </div>

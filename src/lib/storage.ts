@@ -7,8 +7,8 @@ let currentSettings: AppSettings = {
   freeShippingDubaiThreshold: DEFAULT_SETTINGS.freeThresholdUsd,
   dubaiDeliveryFee: DEFAULT_SETTINGS.dubaiFeeUsd,
   libyaShippingFee: DEFAULT_SETTINGS.libyaShippingFee,
-  whatsappNumber: "+218943964444",
-  phoneNumber: "094 396 44 44",
+  whatsappNumber: "+218920064400",
+  phoneNumber: "092 006 44 00",
   updatedAt: new Date().toISOString(),
 };
 
